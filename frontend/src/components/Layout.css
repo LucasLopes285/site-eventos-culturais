@@ -1,0 +1,68 @@
+/* frontend/src/components/Layout.css */
+
+/* Garante que o layout ocupe toda a altura */
+.site-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-header {
+  background-color: #004d40; /* Um tom de verde escuro */
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.site-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-family: 'Montserrat', sans-serif;
+      font-weight: 700;                   /* Usando o peso "bold" que importamos */
+}
+
+/* Remove o estilo padrão do link do título */
+.site-title-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Área principal do conteúdo */
+.site-content {
+  flex: 1; /* Faz com que o conteúdo principal ocupe o espaço restante */
+  background-color: #f4f4f9;
+  
+  width: 100%;             /* Garante que ocupe o espaço disponível */
+  max-width: 1200px;       /* A LARGURA MÁXIMA PARA TODAS AS PÁGINAS! */
+  margin: 0 auto;          /* Centraliza este container principal */
+  padding: 0 20px 20px 20px; /* Adiciona um respiro interno (topo, dir, baixo, esq) */
+  box-sizing: border-box;  /* Garante que o padding não "estoure" a largura */
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+}
+.auth-link, .auth-button {
+    text-decoration: none;
+    color: white;
+    background: none;
+    border: 1px solid white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.auth-button:hover, .auth-link:hover {
+    background-color: white;
+    color: #004d40;
+}

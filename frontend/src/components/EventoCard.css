@@ -1,0 +1,104 @@
+/* frontend/src/components/EventoCard.css (Novo Design) */
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.evento-card-novo {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  transition: box-shadow 0.3s ease;
+}
+
+.evento-card-novo:hover {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.card-imagem-novo {
+  width: 100%;
+  aspect-ratio: 21 / 9; /* Proporção mais panorâmica, como na imagem */
+  object-fit: cover; /* Cobre todo o espaço da imagem */
+  display: block;
+}
+
+.card-conteudo-novo {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 1.5rem; /* Espaço entre a data, o título e as infos */
+}
+
+/* --- Caixa da Data --- */
+.data-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #616161;
+  font-weight: bold;
+  flex-shrink: 0; /* Impede que a caixa da data encolha */
+}
+
+.data-box .mes {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.data-box .dia {
+  font-size: 2rem;
+  line-height: 1;
+  color: #212121;
+}
+
+.data-box .semana {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+/* --- Caixa de Informações (Título e Local) --- */
+.info-box {
+  flex-grow: 1; /* Faz esta área ocupar o espaço disponível */
+  min-width: 0; 
+}
+
+.card-titulo-novo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #212121;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.4;
+  
+  
+  min-height: 48px; /* Altura mínima para ~2 linhas (1.1rem * 1.4 * 2) */
+  
+  /* Mantemos a lógica de cortar se passar de 2 linhas */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.info-local {
+  font-size: 0.9rem;
+  color: #757575;
+}
+
+/* --- Informações Adicionais --- */
+.info-adicional {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 0.8rem;
+  color: #616161;
+  flex-shrink: 0;
+  border-left: 1px solid #eeeeee; /* Linha separadora */
+  padding-left: 1.5rem;
+  white-space: nowrap; /* Impede que o texto quebre linha */
+}

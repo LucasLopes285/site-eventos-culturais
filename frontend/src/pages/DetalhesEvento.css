@@ -1,0 +1,219 @@
+/* Estilo para a página de Detalhes do Evento, baseado no design profissional */
+
+/* Container geral da página */
+.detalhe-evento-pagina {
+  max-width: 1100px;
+  margin: 2rem auto;
+  background-color: #ffffff;
+  padding: 2.5rem;
+}
+
+/* --- Seção da Capa (Imagem de Topo) --- */
+.evento-capa {
+  height: 350px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem;
+  color: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.capa-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+}
+
+.capa-titulo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  margin: 0 0 10px 0;
+  text-shadow: 1px 1px 8px rgba(0,0,0,0.8);
+  line-height: 1.2;
+}
+
+.capa-pills {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.pill {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.pill .fa {
+  font-size: 1rem;
+}
+
+/* --- Container Principal (Grid de 2 colunas) --- */
+.detalhe-grid-container {
+  display: grid;
+  /* A coluna da esquerda ocupará 2.5x mais espaço que a da direita */
+  grid-template-columns: 2.5fr 1fr;
+  gap: 2.5rem;
+  padding: 2.5rem 0 0 0;
+}
+
+/* --- Coluna da Esquerda --- */
+.conteudo-principal h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.sobre-evento p {
+  line-height: 1.8;
+  color: #555;
+}
+
+.informacoes-adicionais {
+  margin-top: 2.5rem;
+}
+
+.info-grid-adicional {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+}
+
+.info-bloco {
+  display: flex;
+  flex-direction: column; /* Garante que o label fique em cima do valor */
+}
+
+.info-bloco .info-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.info-bloco .info-valor {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* --- Coluna da Direita (Barra Lateral) --- */
+.conteudo-lateral {
+  position: sticky; /* Efeito "grudento" ao rolar a página */
+  top: 2rem;
+}
+
+.inscricao-box, .compartilhar {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.inscricao-box h2, .compartilhar h3 {
+  font-size: 1.3rem;
+  margin-top: 0;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.inscricao-box > span {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #004d40;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.inscricao-box p {
+  margin: 0.5rem 0;
+}
+
+.botao-inscrever, .botao-cancelar {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.botao-inscrever { background-color: #007bff; }
+.botao-inscrever:hover { background-color: #0056b3; }
+.botao-cancelar { background-color: #dc3545; }
+.botao-cancelar:hover { background-color: #c82333; }
+
+.icones-compartilhamento {
+  display: flex;
+  gap: 15px;
+}
+
+.icones-compartilhamento a {
+  font-size: 1.5rem;
+  color: #555;
+  transition: color 0.2s;
+}
+
+.icones-compartilhamento a:hover {
+  color: #007bff;
+}
+
+/* --- Seção Final (Ações de Admin e Voltar) --- */
+.acoes-finais {
+  padding: 2rem 0;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-actions-bottom {
+  display: flex;
+  gap: 1rem;
+}
+
+.botao-editar, .botao-excluir {
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+}
+.botao-editar { background-color: #17a2b8; }
+.botao-excluir { background-color: #dc3545; }
+
+
+.link-voltar {
+  color: #007bff;
+  font-weight: 500;
+  text-decoration: none;
+}

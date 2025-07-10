@@ -1,0 +1,85 @@
+/* frontend/src/App.css (Versão Final e Definitiva) */
+
+.app-container {
+  padding: 20px;
+}
+
+/* --- Container Principal dos Filtros --- */
+.filtro-container {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  
+  /* Configuração do Flexbox */
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap; /* Permite que os filtros quebrem para a linha de baixo */
+  align-items: center; /* Alinha verticalmente os filtros */
+}
+
+/* --- Cada item de filtro (label + campo) --- */
+.filtro-item {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;      /* Permite que o item cresça */
+  flex-basis: 200px; /* Define uma largura base inicial para cada item */
+}
+
+/* O item de busca pode crescer mais que os outros */
+.filtro-item.filtro-busca {
+  flex-grow: 2;
+}
+
+.filtro-item label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+/* --- O Estilo para os Campos de Input e Select --- */
+.filtro-container input[type="text"],
+.filtro-container select {
+  width: 100%; 
+  /* Força o campo a ter exatamente 100% da largura do seu container (.filtro-item) */
+  
+  box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+  
+  padding: 0.8rem;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f8f9fa;
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.filtro-container select {
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 1.5em;
+}
+
+.filtro-container input[type="text"]:focus,
+.filtro-container select:focus {
+  outline: none;
+  border-color: #004d40;
+  box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.2);
+}
+
+/* --- Estilos da Lista de Eventos --- */
+.lista-eventos {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}

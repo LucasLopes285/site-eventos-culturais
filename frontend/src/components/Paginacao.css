@@ -1,0 +1,23 @@
+/* frontend/src/components/Paginacao.css */
+.paginacao-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.paginacao-container button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #004d40;
+  background-color: white;
+  color: #004d40;
+  cursor: pointer;
+}
+.paginacao-container button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.paginacao-container button:hover:not(:disabled) {
+  background-color: #004d40;
+  color: white;
+}

@@ -1,0 +1,86 @@
+// backend/prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Categoria {
+  id      Int      @id @default(autoincrement())
+  nome    String   @unique
+  eventos Evento[]
+
+  @@map("categorias")
+}
+
+model Usuario {
+  id         Int         @id @default(autoincrement())
+  nome       String
+  email      String      @unique
+  senha      String
+  tipo       TipoUsuario @default(COMUM)
+  eventos    Evento[]
+  inscricoes Inscricao[] // <<< ADICIONE ESTA LINHA PARA A RELAÇÃO
+
+  @@map("usuarios")
+}
+
+model Evento {
+  id                   Int         @id @default(autoincrement())
+  titulo               String      @db.VarChar(255)
+  descricao_curta      String?     @db.VarChar(500)
+  descricao_longa      String?     @db.Text
+  data_inicio          DateTime
+  data_fim             DateTime?
+  local                String?
+  endereco             String?
+  url_imagem           String?     @db.VarChar(2048)
+  preco                Decimal     @default(0.00)
+  requer_inscricao     Boolean     @default(false)
+  limite_participantes Int?
+  classificacao_etaria String?     @db.VarChar(50)
+  organizador          String?     @db.VarChar(150)
+  contato              String?   @db.VarChar(255) // <<< ADICIONE ESTA LINHA
+  status               StatusEvento @default(Ativo)
+  data_criacao         DateTime    @default(now())
+  id_criador           Int?
+  criador              Usuario?    @relation(fields: [id_criador], references: [id])
+  id_categoria         Int?
+  categoria            Categoria?  @relation(fields: [id_categoria], references: [id])
+  inscricoes           Inscricao[] // <<< ADICIONE ESTA LINHA PARA A RELAÇÃO
+
+  @@map("eventos")
+}
+
+// VVV ADICIONE ESTE MODELO INTEIRO NO FINAL DO ARQUIVO VVV
+model Inscricao {
+  id             Int      @id @default(autoincrement())
+  data_inscricao DateTime @default(now())
+
+  // Chaves estrangeiras que criam a ligação
+  usuarioId Int
+  eventoId  Int
+
+  // Campos de relação
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  evento  Evento  @relation(fields: [eventoId], references: [id])
+
+  // Garante que um usuário não pode se inscrever duas vezes no mesmo evento
+  @@unique([usuarioId, eventoId])
+  @@map("inscricoes")
+}
+
+enum StatusEvento {
+  Ativo
+  Inativo
+  Cancelado
+}
+
+enum TipoUsuario {
+  ADMIN
+  COMUM
+}

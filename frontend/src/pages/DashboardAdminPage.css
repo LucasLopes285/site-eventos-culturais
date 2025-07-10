@@ -1,0 +1,122 @@
+/* frontend/src/pages/DashboardAdminPage.css (Versão Final Polida) */
+
+.dashboard-container {
+  padding: 2rem;
+}
+
+.dashboard-container h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+/* --- Grid de Estatísticas --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  display: flex; /* Para alinhar o texto e o ícone */
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.stat-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.stat-card .stat-valor {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #004d40; /* Verde do tema */
+  line-height: 1;
+}
+
+.stat-card .stat-icon {
+  font-size: 4rem;
+  color: #004d40;
+  position: absolute;
+  right: 1rem;
+  bottom: -0.5rem;
+}
+
+/* --- Seção de Atividades Recentes --- */
+.recentes-container h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Botão de Ação Principal */
+.botao-acao-principal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #004d40;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  transition: background-color 0.2s;
+}
+
+.botao-acao-principal:hover {
+  background-color: #00382e;
+}
+
+.lista-recente {
+  list-style-type: none;
+  padding: 0;
+}
+
+.item-recente {
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #f0f0f0;
+  transition: box-shadow 0.2s ease;
+}
+
+.item-recente:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+}
+
+.item-recente-titulo {
+  font-weight: 600;
+  color: #333;
+}
+
+.item-recente-categoria {
+  background-color: #e9ecef;
+  color: #495057;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
