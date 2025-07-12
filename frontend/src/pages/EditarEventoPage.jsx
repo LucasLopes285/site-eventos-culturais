@@ -15,17 +15,18 @@ function EditarEventoPage() {
     descricao_longa: '',
     data_inicio: '',
     local: '',
+    endereco: '',
     preco: 0,
     id_categoria: '',
     requer_inscricao: false,
     limite_participantes: 0,
     organizador: '',
     contato: '',
-    url_imagem: '', 
+    url_imagem: '',
   });
 
   const [isPago, setIsPago] = useState(false);
-  const [novaImagem, setNovaImagem] = useState(null); 
+  const [novaImagem, setNovaImagem] = useState(null);
   const [categorias, setCategorias] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,6 +52,7 @@ function EditarEventoPage() {
           descricao_longa: dadosDoEvento.descricao_longa || '',
           data_inicio: dataFormatada,
           local: dadosDoEvento.local || '',
+          endereco: dadosDoEvento.endereco || '',
           preco: dadosDoEvento.preco || 0,
           id_categoria: dadosDoEvento.id_categoria || '',
           requer_inscricao: dadosDoEvento.requer_inscricao || false,
@@ -95,7 +97,7 @@ function EditarEventoPage() {
     const dadosParaEnviar = new FormData();
 
     Object.keys(formData).forEach(key => {
-      if (key !== 'url_imagem') { 
+      if (key !== 'url_imagem') {
         dadosParaEnviar.append(key, formData[key]);
       }
     });
@@ -140,6 +142,7 @@ function EditarEventoPage() {
       <textarea name="descricao_longa" placeholder="Descrição Completa" value={formData.descricao_longa || ''} onChange={handleChange} rows="5" />
       <input name="data_inicio" type="datetime-local" value={formData.data_inicio} onChange={handleChange} required />
       <input name="local" type="text" placeholder="Local do Evento" value={formData.local || ''} onChange={handleChange} />
+      <input name="endereco" type="text" placeholder="Endereço Completo" value={formData.endereco || ''} onChange={handleChange} /> {/* <<< ADICIONE AQUI */}
       <input name="organizador" type="text" placeholder="Organizador do Evento" value={formData.organizador} onChange={handleChange} />
       <input name="contato" type="text" placeholder="Contato (email ou telefone)" value={formData.contato} onChange={handleChange} />
 

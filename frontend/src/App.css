@@ -43,7 +43,6 @@
 .filtro-container input[type="text"],
 .filtro-container select {
   width: 100%; 
-  /* Força o campo a ter exatamente 100% da largura do seu container (.filtro-item) */
   
   box-sizing: border-box; /* Garante que o padding não aumente a largura total */
   
@@ -82,4 +81,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
+}
+
+.secao-meus-eventos {
+  margin-bottom: 3rem;
 }

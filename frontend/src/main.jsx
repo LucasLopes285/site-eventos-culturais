@@ -1,16 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import EditarEventoPage from './pages/EditarEventoPage'; 
+import EditarEventoPage from './pages/EditarEventoPage';
 
-// 1. Importando o Contexto de Autenticação
 import { AuthProvider } from './context/AuthContext.jsx';
 
-// 2. Importando os Componentes de Layout e Proteção
 import Layout from './components/Layout.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
-// 3. Importando todas as nossas Páginas
 import App from './App.jsx';
 import DetalhesEvento from './pages/DetalhesEvento.jsx';
 import LoginPage from './pages/LoginPage.jsx';
@@ -19,7 +16,6 @@ import MeusEventosPage from './pages/MeusEventosPage.jsx';
 import DashboardAdminPage from './pages/DashboardAdminPage.jsx';
 import CriarEventoPage from './pages/CriarEventoPage.jsx';
 
-// 4. Importando o CSS global
 import './index.css';
 
 // Criação do roteador com a estrutura aninhada e protegida
@@ -54,8 +50,16 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'meus-eventos',
-            element: <MeusEventosPage />,
+            element: <MeusEventosPage />
           },
+          {
+            path: 'eventos/criar',
+            element: <CriarEventoPage />
+          },
+          {
+            path: 'eventos/:id/editar',
+            element: <EditarEventoPage />
+          }, 
           // Se tivéssemos uma página de "Editar Perfil", ela viria aqui dentro.
         ],
       },
@@ -68,16 +72,12 @@ const router = createBrowserRouter([
             path: 'dashboard',
             element: <DashboardAdminPage />,
           },
+
           {
-            path: 'eventos/criar',
-            element: <CriarEventoPage />,
-          },
-          {
-            path: 'eventos/:id/editar', 
+            path: 'eventos/:id/editar',
             element: <EditarEventoPage />
 
-          }, 
-          // Todas as futuras páginas de administração viriam aqui.
+          },
         ],
       },
     ],

@@ -5,7 +5,7 @@ const router = express.Router();
 const upload = require('../config/multerConfig');
 
 // Importando os middlewares de verificação de permissão
-const { verifyAdmin } = require('../middleware/authMiddleware');
+const { verifyAdmin, verifyToken } = require('../middleware/authMiddleware');
 
 // Importando todas as funções do nosso controller de eventos
 const { 
@@ -28,12 +28,14 @@ router.get('/categorias', listarCategorias);
 // --- ROTAS DE ADMIN (precisam de login de admin) ---
 
 // Rota para criar um novo evento
-router.post('/eventos', verifyAdmin, upload.single('imagem'), criarEvento);
+router.post('/eventos', verifyToken, upload.single('imagem'), criarEvento);
 
 // Rota para atualizar um evento existente 
-router.put('/eventos/:id', verifyAdmin, upload.single('imagem'), atualizarEvento);
+router.put('/eventos/:id', verifyToken, upload.single('imagem'), atualizarEvento);
 
-// Rota para excluir um evento existente
-router.delete('/eventos/:id', verifyAdmin, excluirEvento);
+// Rota para excluir um evento 
+router.delete('/eventos/:id', verifyToken, excluirEvento);
+
+
 
 module.exports = router;

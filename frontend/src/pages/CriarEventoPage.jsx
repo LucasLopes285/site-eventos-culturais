@@ -11,6 +11,7 @@ function CriarEventoPage() {
     descricao_longa: '',
     data_inicio: '',
     local: '',
+    endereco: '',
     preco: 0,
     id_categoria: '',
     requer_inscricao: false,
@@ -96,7 +97,8 @@ function CriarEventoPage() {
       <textarea name="descricao_curta" placeholder="Descrição Curta (aparece nos cards)" value={formData.descricao_curta} onChange={handleChange} />
       <textarea name="descricao_longa" placeholder="Descrição Completa do Evento" value={formData.descricao_longa} onChange={handleChange} rows="5" />
       <input name="data_inicio" type="datetime-local" value={formData.data_inicio} onChange={handleChange} required />
-      <input name="local" type="text" placeholder="Local do Evento" value={formData.local} onChange={handleChange} />       
+      <input name="local" type="text" placeholder="Local do Evento" value={formData.local} onChange={handleChange} />
+      <input name="endereco" type="text" placeholder="Endereço Completo" value={formData.endereco} onChange={handleChange} /> {/* <<< ADICIONE AQUI */}
       <input name="organizador" type="text" placeholder="Organizador do Evento" value={formData.organizador} onChange={handleChange} />
       <input name="contato" type="text" placeholder="Contato (email ou telefone)" value={formData.contato} onChange={handleChange} />
 

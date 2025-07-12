@@ -8,6 +8,7 @@ const eventoRoutes = require('./routes/eventoRoutes');
 const authRoutes = require('./routes/authRoutes'); 
 const inscricaoRoutes = require('./routes/inscricaoRoutes'); 
 const dashboardRoutes = require('./routes/dashboardRoutes'); 
+const usuarioRoutes = require('./routes/usuarioRoutes');
 
 const app = express();
 const PORT = 3001;
@@ -25,6 +26,7 @@ app.use('/api', eventoRoutes);
 app.use('/api/auth', authRoutes); 
 app.use('/api', inscricaoRoutes); 
 app.use('/api', dashboardRoutes); 
+app.use('/api', usuarioRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Servidor backend rodando na porta ${PORT}`);

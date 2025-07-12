@@ -52,11 +52,20 @@ const buscarEventoPorId = async (req, res) => {
 };
 
 // Cria um novo evento
+// Em backend/controllers/eventoController.js
+
 const criarEvento = async (req, res) => {
-  const {organizador, contato, dadosDoFormulario} = req.body;
-  const id_criador = req.user.id; // Pega o ID do admin logado
+  const dadosDoFormulario = req.body;
+  const id_criador = req.user.id;
 
   try {
+    // --- VALIDAÇÃO DE SEGURANÇA ADICIONADA AQUI ---
+    const idCategoriaNumerico = parseInt(dadosDoFormulario.id_categoria);
+    if (isNaN(idCategoriaNumerico)) {
+      // Se a categoria não for um número válido, retorna um erro 400 claro.
+      return res.status(400).json({ error: "ID de categoria inválido ou não fornecido." });
+    }
+
     let urlImagemFinal = null;
     if (req.file) {
       urlImagemFinal = `http://localhost:3001/uploads/${req.file.filename}`;
@@ -65,15 +74,13 @@ const criarEvento = async (req, res) => {
     const novoEvento = await prisma.evento.create({
       data: {
         ...dadosDoFormulario,
-        organizador,
-        contato,
         requer_inscricao: dadosDoFormulario.requer_inscricao === 'true',
         limite_participantes: parseInt(dadosDoFormulario.limite_participantes) || 0,
         data_inicio: new Date(dadosDoFormulario.data_inicio),
         data_fim: dadosDoFormulario.data_fim ? new Date(dadosDoFormulario.data_fim) : null,
         preco: parseFloat(dadosDoFormulario.preco) || 0,
-        id_categoria: parseInt(dadosDoFormulario.id_categoria),
-        id_criador, 
+        id_categoria: idCategoriaNumerico, // Usamos a variável já validada e convertida
+        id_criador,
         url_imagem: urlImagemFinal,
       }
     });
@@ -84,17 +91,30 @@ const criarEvento = async (req, res) => {
   }
 };
 
-// Atualiza um evento existente
+
 const atualizarEvento = async (req, res) => {
-  // Usamos 'paramId' para pegar o ID da URL e evitar conflito de nome
   const { id: paramId } = req.params;
-  
-  
-  const { id, url_imagem, ...dadosDoFormulario } = req.body; 
-  
-  const id_criador = req.user.id;
-      
+  const idUsuarioLogado = req.user.id; // ID do usuário que está fazendo a requisição
+
   try {
+    // 1. Primeiro, buscamos o evento no banco para saber quem é o seu criador.
+    const eventoParaAtualizar = await prisma.evento.findUnique({
+      where: { id: parseInt(paramId) },
+    });
+
+    // Se o evento nem sequer existe, retornamos um erro 404.
+    if (!eventoParaAtualizar) {
+      return res.status(404).json({ error: "Evento não encontrado." });
+    }
+
+    // 2. A VERIFICAÇÃO DE PERMISSÃO: o ID do usuário logado é o mesmo do criador do evento?
+    if (eventoParaAtualizar.id_criador !== idUsuarioLogado) {
+      // Se não for, ele não tem permissão. Retornamos um erro 403 (Forbidden).
+      return res.status(403).json({ error: "Acesso negado. Você não tem permissão para editar este evento." });
+    }
+    
+    // 3. Se a permissão for válida, o resto do código (que já tínhamos) é executado.
+    const { id, url_imagem, ...dadosDoFormulario } = req.body;
     
     const dadosParaSalvar = {
       ...dadosDoFormulario,
@@ -104,7 +124,7 @@ const atualizarEvento = async (req, res) => {
       data_fim: dadosDoFormulario.data_fim ? new Date(dadosDoFormulario.data_fim) : null,
       preco: parseFloat(dadosDoFormulario.preco) || 0,
       id_categoria: parseInt(dadosDoFormulario.id_categoria),
-      id_criador,
+      id_criador: idUsuarioLogado, // Mantemos o criador original
     };
 
     if (req.file) {
@@ -112,10 +132,11 @@ const atualizarEvento = async (req, res) => {
     }
 
     const eventoAtualizado = await prisma.evento.update({
-      where: { id: parseInt(paramId) }, // Usamos o ID que veio da URL
-      data: dadosParaSalvar,           // Enviamos os dados já sem o ID
+      where: { id: parseInt(paramId) },
+      data: dadosParaSalvar,
     });
     res.status(200).json(eventoAtualizado);
+
   } catch (error) {
     console.error("ERRO DETALHADO AO ATUALIZAR:", error);
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
@@ -126,14 +147,32 @@ const atualizarEvento = async (req, res) => {
 };
 
 
-// Exclui um evento existente
 const excluirEvento = async (req, res) => {
   const { id } = req.params;
+  const usuarioLogado = req.user; // Objeto completo do usuário logado (contém id e tipo)
+
   try {
-    await prisma.evento.delete({
+    // 1. Buscamos o evento no banco para saber quem é o seu criador.
+    const eventoParaExcluir = await prisma.evento.findUnique({
       where: { id: parseInt(id) },
     });
-    res.status(204).send();
+
+    if (!eventoParaExcluir) {
+      return res.status(404).json({ error: "Evento não encontrado." });
+    }
+
+    // 2. A VERIFICAÇÃO DE PERMISSÃO
+    // A condição é: O usuário logado é o dono do evento? OU o tipo do usuário logado é 'ADMIN'?
+    if (eventoParaExcluir.id_criador === usuarioLogado.id || usuarioLogado.tipo === 'ADMIN') {
+      // Se qualquer uma das condições for verdadeira, ele tem permissão para excluir.
+      await prisma.evento.delete({
+        where: { id: parseInt(id) },
+      });
+      return res.status(204).send(); // Sucesso, sem conteúdo de resposta.
+    } else {
+      // Se nenhuma das condições for verdadeira, o acesso é negado.
+      return res.status(403).json({ error: "Acesso negado. Você não tem permissão para excluir este evento." });
+    }
   } catch (error) {
     console.error("Erro ao excluir evento:", error);
     if (error.code === 'P2025') {
