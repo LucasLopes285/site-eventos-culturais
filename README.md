@@ -105,8 +105,4 @@ Para executar este projeto em sua máquina, você precisará ter o Node.js e o P
 
 ---
 
-## 👤 Autor
 
-* **[Seu Nome Completo]**
-* **LinkedIn:** [Opcional: Link para seu LinkedIn]
-* **GitHub:** [Link para seu GitHub]
